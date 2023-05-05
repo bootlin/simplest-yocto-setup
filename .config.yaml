@@ -18,3 +18,7 @@ repos:
     refspec: kirkstone
     layers:
       meta:
+
+  meta-kiss:
+    layers:
+      meta-kiss:
