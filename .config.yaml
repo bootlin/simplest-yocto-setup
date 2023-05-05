@@ -22,3 +22,9 @@ repos:
   meta-kiss:
     layers:
       meta-kiss:
+
+local_conf_header:
+  meta-kiss: |
+    # Some useful lines you may want to copy to your site.conf for development
+    # INHERIT += "rm_work"
+    # EXTRA_IMAGE_FEATURES = "debug-tweaks"
