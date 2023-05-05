@@ -1,0 +1,20 @@
+header:
+  version: 11
+
+machine: dogbonedark
+distro: kiss
+target:
+  - kiss-image
+
+repos:
+  bitbake:
+    url: "https://git.openembedded.org/bitbake"
+    refspec: "2.0"
+    layers:
+      .: excluded
+
+  openembedded-core:
+    url: "https://git.openembedded.org/openembedded-core"
+    refspec: kirkstone
+    layers:
+      meta:
