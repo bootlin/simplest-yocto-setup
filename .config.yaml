@@ -19,6 +19,13 @@ repos:
     layers:
       meta:
 
+  meta-arm:
+    url: "git://git.yoctoproject.org/meta-arm"
+    refspec: kirkstone
+    layers:
+      meta-arm-toolchain:
+      meta-arm:
+
   meta-kiss:
     layers:
       meta-kiss:
