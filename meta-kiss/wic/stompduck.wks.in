@@ -1,0 +1,7 @@
+bootloader --ptable=gpt
+
+part       --part-name=fsbl1  --size=1M  --use-uuid --source=rawcopy --sourceparams="file=tf-a-stm32mp157a-dk1.stm32" --offset=1M
+part       --part-name=fsbl2  --size=1M  --use-uuid --source=rawcopy --sourceparams="file=tf-a-stm32mp157a-dk1.stm32"
+part       --part-name=fip    --size=2M  --use-uuid --source=rawcopy --sourceparams="file=fip.bin"
+part /boot --part-name=bootfs --size=1M  --use-uuid --fstype=ext4 --label=boot --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/boot --active --fsoptions="^metadata_csum"
+part /     --part-name=root   --size=32M --use-uuid --fstype=ext4 --label=root --source rootfs --exclude-path=boot/
