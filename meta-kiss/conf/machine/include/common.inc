@@ -8,3 +8,8 @@ MACHINE_ESSENTIAL_EXTRA_RDEPENDS = "u-boot-kiss-extlinux kernel-devicetree"
 
 # Install kernel modules if they are enabled
 MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS = "kernel-modules"
+
+# Generate a bootable uSD card image using wic. Also generate a bmap file
+# to speed up writing to a card by avoiding to write uninitialized data.
+WKS_FILE = "${MACHINE}.wks.in"
+IMAGE_FSTYPES:append = " wic wic.bmap"
