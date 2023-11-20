@@ -4,7 +4,7 @@
 
 SUMMARY = "A simple, minimal image"
 
-IMAGE_INSTALL = "packagegroup-core-boot"
+IMAGE_INSTALL = "packagegroup-core-boot dropbear"
 
 IMAGE_LINGUAS = " "
 
