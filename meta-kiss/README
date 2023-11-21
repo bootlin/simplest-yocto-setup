@@ -5,23 +5,18 @@ Please see the corresponding sections below for details.
 Dependencies
 ============
 
-  URI: <first dependency>
-  branch: <branch name>
+  URI: https://git.openembedded.org/openembedded-core
+  branch: kirkstone
 
-  URI: <second dependency>
-  branch: <branch name>
-
-  .
-  .
-  .
+  URI: git://git.yoctoproject.org/meta-arm
+  branch: kirkstone
 
 Patches
 =======
 
-Please submit any patches against the meta-kiss layer to the xxxx mailing list (xxxx@zzzz.org)
-and cc: the maintainer:
-
-Maintainer: XXX YYYYYY <xxx.yyyyyy@zzzzz.com>
+Please submit any patches against the meta-kiss layer as patches to
+feedback@bootlin.com or as github pull requests at
+https://github.com/bootlin/simplest-yocto-setup
 
 Table of Contents
 =================
@@ -38,4 +33,7 @@ Run 'bitbake-layers add-layer meta-kiss'
 II. Misc
 ========
 
---- replace with specific information about the meta-kiss layer ---
+This layerprovides an example of the simplest, but realistic and working,
+Yocto/OpenEmbedded setup for end products. It is not useful as is, but
+rather as a reference on how a layer can be written without unnecessary
+complications.
