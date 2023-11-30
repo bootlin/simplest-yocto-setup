@@ -33,7 +33,7 @@ Run 'bitbake-layers add-layer meta-kiss'
 II. Misc
 ========
 
-This layerprovides an example of the simplest, but realistic and working,
+This layer provides an example of the simplest, but realistic and working,
 Yocto/OpenEmbedded setup for end products. It is not useful as is, but
 rather as a reference on how a layer can be written without unnecessary
 complications.
