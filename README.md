@@ -14,8 +14,8 @@ their layers.
 
 We have spent a lot of time in educating to writing clean layers, which
 often involved fixing problems by removing a lot of the code they had
-written or they had taken from exieting third-patry layers. In other words:
-meking hte code simple and "stupid", resulting in a more understandable,
+written or they had taken from existing third-party layers. In other words:
+making the code simple and "stupid", resulting in a more understandable,
 more efficient, easier to upgrade and less buggy build environment.
 
 This repository is implementing a similar setup, aiming at being a
@@ -36,7 +36,7 @@ correct place and enable them in the configuration. In this example it
 downloads and enables:
 
  * the `bitbake` build engine
- * the `openembedded-core` repository which contains thh e`meta` layer
+ * the `openembedded-core` repository which contains the `meta` layer
    with all the "core" recipes
  * the `meta-arm` repository which contains the `meta-arm` and
    `meta-arm-toolchain` layers
@@ -57,7 +57,7 @@ best if they are kept simple rather than made complicated" (source:
 [Wikipedia](https://en.wikipedia.org/wiki/KISS_principle)).
 
 Here we used "kiss" as the hypothetical name of a fictitious company. The
-machine configurations in meta-kiss implement fictioius products, but
+machine configurations in meta-kiss implement fictitious products, but
 except for their name they are actual development boards and the output
 images can be used on these boards. In real world use cases a layer
 implementing company products can reasonably be called
@@ -74,7 +74,7 @@ The `meta-kiss` layer provides:
 Note that `meta-kiss` is a single layer. The `bitbake` Yocto/OE build
 engine is powerful enough to handle lots of machines, recipes and even
 multiple distros in a single layer. Thus using a simple layer in your
-company is perfetcly fine and encouraged, unless your need are so complex
+company is perfectly fine and encouraged, unless your need are so complex
 that splitting it into multiple layers proves useful.
 
 ## Machines
@@ -93,7 +93,7 @@ We could of course have used the meta-ti-bsp layer directly, however since
 the hardware is very well supported by the mainline kernel and U-Boot we
 only needed to write (or copy and paste!) only a small amount of code.
 
-Several BSP layers provided by hardware vendirs bring in extra complexity,
+Several BSP layers provided by hardware vendors bring in extra complexity,
 deviation from standard coding practices and even bugs and unnecessarily
 complex code. In the spirit of this project, we chose to provide an example
 of how you can do without them in many cases.
