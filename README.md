@@ -30,10 +30,10 @@ This repository is composed of:
  * `meta-kiss`: the layer with the (fictitious) metadata for the products
    of a (fictitious) company
 
-The `.config.yaml` is the configuration file for the kas utility, which
-allows to easily download all the required third-party components in the
-correct place and enable them in the configuration. In this example it
-downloads and enables:
+The `.config.yaml` is the configuration file for the
+[kas](https://kas.readthedocs.io/) utility, which allows to easily download
+all the required third-party components in the correct place and enable
+them in the configuration. In this example it downloads and enables:
 
  * the `bitbake` build engine
  * the `openembedded-core` repository which contains the `meta` layer
