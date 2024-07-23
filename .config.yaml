@@ -9,19 +9,19 @@ target:
 repos:
   bitbake:
     url: "https://git.openembedded.org/bitbake"
-    refspec: "2.0"
+    branch: "2.0"
     layers:
       .: excluded
 
   openembedded-core:
     url: "https://git.openembedded.org/openembedded-core"
-    refspec: kirkstone
+    branch: kirkstone
     layers:
       meta:
 
   meta-arm:
     url: "git://git.yoctoproject.org/meta-arm"
-    refspec: kirkstone
+    branch: kirkstone
     layers:
       meta-arm-toolchain:
       meta-arm:
