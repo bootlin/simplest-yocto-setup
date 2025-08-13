@@ -11,6 +11,10 @@ LIC_FILES_CHKSUM = "file://Licenses/README;md5=2ca5f2c35c8cc335f0a19756634782f1"
 # file on the 4th partition of the SD card, formatted as an ext4 filesystem
 SRC_URI:append:stm32mp1 = " file://env-on-mmc0-4-ext4.cfg"
 
+# Add patch to use SWIG_AppendOutput
+# Backport from change in oe-core master branch
+SRC_URI:append:stm32mp1 = " file://0001-scripts-dtc-pylibfdt-libfdt.i_shipped-Use-SWIG_Appen.patch"
+
 DEPENDS:append:stm32mp1 = " python3-setuptools-native"
 
 do_deploy:append:stm32mp1() {

@@ -3,11 +3,7 @@
 
 SUMMARY = "A program to make you smile when you mistype 'ls'"
 HOMEPAGE = "https://github.com/mtoyoda/sl"
-# Believe it or not, the SL license is in the SPDX database...
 LICENSE = "SL"
-# ...but it is not in the generic openembedded-core licenses, so avoid
-# avoid QA warnings:
-NO_GENERIC_LICENSE[SL] = "LICENSE"
 
 SRC_URI = "git://github.com/mtoyoda/sl.git;protocol=https;branch=master"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=74e9dd589a0ab212a9002b15ef2b82f0"
