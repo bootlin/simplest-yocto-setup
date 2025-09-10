@@ -27,7 +27,10 @@ do_deploy:append:stm32mp1() {
 }
 
 # We need to add support for FRDM i.MX93 board, not released yet.
-SRC_URI:append:freiheit93 = " file://0001-imx93_frdm-Add-initial-board-support.patch"
+SRC_URI:append:freiheit93 = " \
+    file://0001-imx93_frdm-Add-initial-board-support.patch \
+    file://0002-imx93_frdm-Add-support-for-flashing-board-with-UUU.patch \
+    "
 
 # We will embed both boot firmwares and TFA images in the generated binary: we
 # do depend on them.
