@@ -1,0 +1,26 @@
+From 619367da3299d699295a84e20e54cb093a33b4d1 Mon Sep 17 00:00:00 2001
+From: Kory Maincent <kory.maincent@bootlin.com>
+Date: Wed, 17 Sep 2025 12:36:58 +0000
+Subject: [PATCH] Revert "board: st: stm32mp1: Clean env_get_location()"
+
+This reverts commit d37641c61ba212241c38e3fd22f0335fc0bebc96.
+---
+ board/st/stm32mp1/stm32mp1.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/board/st/stm32mp1/stm32mp1.c b/board/st/stm32mp1/stm32mp1.c
+index 15fb9e4b062..d5e5e776d2a 100644
+--- a/board/st/stm32mp1/stm32mp1.c
++++ b/board/st/stm32mp1/stm32mp1.c
+@@ -751,6 +751,8 @@ enum env_location env_get_location(enum env_operation op, int prio)
+ 	case BOOT_FLASH_EMMC:
+ 		if (CONFIG_IS_ENABLED(ENV_IS_IN_MMC))
+ 			return ENVL_MMC;
++		else if (CONFIG_IS_ENABLED(ENV_IS_IN_EXT4))
++			return ENVL_EXT4;
+ 		else
+ 			return ENVL_NOWHERE;
+ 
+-- 
+2.34.1
+
