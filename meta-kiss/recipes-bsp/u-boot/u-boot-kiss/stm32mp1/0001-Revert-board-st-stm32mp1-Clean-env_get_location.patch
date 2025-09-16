@@ -1,0 +1,38 @@
+From 33ede5c69b29fedd0d6d6c855aef9e4eed745742 Mon Sep 17 00:00:00 2001
+From: Kory Maincent <kory.maincent@bootlin.com>
+Date: Wed, 17 Sep 2025 16:17:35 +0200
+Subject: [PATCH] Revert "board: st: stm32mp1: Clean env_get_location()"
+
+This reverts commit d37641c61ba212241c38e3fd22f0335fc0bebc96.
+
+Restore support for environment storage in EXT4 filesystem on eMMC boot.
+The previous cleanup incorrectly removed this fallback option which is
+needed for boards that store their environment in an EXT4 partition.
+
+This configuration is OS-specific rather than board-dependent and should
+remain as it is configurable via menuconfig. Even if it is not described
+in ST defconfigs people may have enabled it in their defconfig.
+
+Upstream-Status: Pending
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+ board/st/stm32mp1/stm32mp1.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/board/st/stm32mp1/stm32mp1.c b/board/st/stm32mp1/stm32mp1.c
+index 15fb9e4b0626..d5e5e776d2a7 100644
+--- a/board/st/stm32mp1/stm32mp1.c
++++ b/board/st/stm32mp1/stm32mp1.c
+@@ -751,6 +751,8 @@ enum env_location env_get_location(enum env_operation op, int prio)
+ 	case BOOT_FLASH_EMMC:
+ 		if (CONFIG_IS_ENABLED(ENV_IS_IN_MMC))
+ 			return ENVL_MMC;
++		else if (CONFIG_IS_ENABLED(ENV_IS_IN_EXT4))
++			return ENVL_EXT4;
+ 		else
+ 			return ENVL_NOWHERE;
+ 
+-- 
+2.47.3
+
