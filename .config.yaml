@@ -38,4 +38,4 @@ local_conf_header:
     #                          allow-empty-password \
     #                          allow-root-login \
     #                          "
-    # LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v58"
+    # LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v57 NXP_EULA_v58"

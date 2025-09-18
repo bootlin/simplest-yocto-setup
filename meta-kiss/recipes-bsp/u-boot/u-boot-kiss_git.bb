@@ -30,17 +30,20 @@ do_deploy:append:stm32mp1() {
 SRC_URI:append:freiheit93 = " \
     file://0001-imx93_frdm-Add-initial-board-support.patch \
     file://0002-imx93_frdm-Add-support-for-flashing-board-with-UUU.patch \
+    file://optee.cfg \
     "
 
-# We will embed both boot firmwares and TFA images in the generated binary: we
-# do depend on them.
-DEPENDS:append:freiheit93 = " imx-boot-firmware-files trusted-firmware-a"
+# We will embed boot firmwares, TFA images and optee image in the generated
+# binary: we do depend on them.
+DEPENDS:append:freiheit93 = " imx-boot-firmware-files trusted-firmware-a optee-os firmware-ele-imx"
 EXTRA_OEMAKE:append:freiheit93 = " BINMAN_INDIRS=${RECIPE_SYSROOT}/firmware"
 
 do_configure:append:freiheit93() {
-    # Copy tfa binary in build directory, so it can be found by mkimage
+    # Copy tfa, tee and ele firmware binaries in build directory, so they can be found by mkimage
     config="${@ d.getVar('UBOOT_MACHINE').strip()}"
     cp ${STAGING_DIR_HOST}/firmware/bl31.bin ${B}/${config}/
+    cp ${STAGING_DIR_HOST}/${nonarch_base_libdir}/firmware/tee-raw.bin ${B}/${config}/tee.bin
+    cp ${STAGING_DIR_HOST}/${nonarch_base_libdir}/firmware/imx/ele/${SECO_FIRMWARE_NAME} ${B}/${config}/
 }
 
 do_deploy:append:freiheit93() {

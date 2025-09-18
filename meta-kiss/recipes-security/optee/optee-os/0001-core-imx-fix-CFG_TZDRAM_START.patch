@@ -1,0 +1,41 @@
+From 5cbaf4c9bccb1f83745f61c97c97aecf7b8d5037 Mon Sep 17 00:00:00 2001
+From: Clement Faure <clement.faure@nxp.com>
+Date: Mon, 21 Mar 2022 16:49:48 +0100
+Subject: [PATCH] core: imx: fix CFG_TZDRAM_START
+
+Fix CFG_TZDRAM_START values for all i.MX platforms.
+
+Signed-off-by: Clement Faure <clement.faure@nxp.com>
+Upstream-Status: Backport
+Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+---
+ core/arch/arm/plat-imx/conf.mk | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/core/arch/arm/plat-imx/conf.mk b/core/arch/arm/plat-imx/conf.mk
+index 85bbfe5032a9..2bdaee843575 100644
+--- a/core/arch/arm/plat-imx/conf.mk
++++ b/core/arch/arm/plat-imx/conf.mk
+@@ -495,9 +495,18 @@ CFG_CRYPTO_WITH_CE ?= y
+ supported-ta-targets = ta_arm64
+ endif
+ 
++ifneq (,$(filter y, $(CFG_MX8MN) $(CFG_MX8MP) $(CFG_MX8DX) $(CFG_MX8DXL) $(CFG_MX93)))
++CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) + 0x16000000)
++else ifneq (,$(filter y, $(CFG_MX8ULP)))
++CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) + 0x26000000)
++else ifneq (,$(filter y, $(CFG_MX8MM) $(CFG_MX8MQ) $(CFG_MX8QM) $(CFG_MX8QX)))
++CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) - 0x02000000 + $(CFG_DDR_SIZE))
++else
++CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) + 0x04000000)
++endif
++
+ CFG_TZDRAM_SIZE ?= 0x01e00000
+ CFG_SHMEM_SIZE ?= 0x00200000
+-CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) - $(CFG_TZDRAM_SIZE) - $(CFG_SHMEM_SIZE) + $(CFG_DDR_SIZE))
+ CFG_SHMEM_START ?= ($(CFG_TZDRAM_START) + $(CFG_TZDRAM_SIZE))
+ 
+ # Enable embedded tests by default
+-- 
+2.39.5
+
