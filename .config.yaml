@@ -9,19 +9,19 @@ target:
 repos:
   bitbake:
     url: "https://git.openembedded.org/bitbake"
-    branch: "2.0"
+    branch: "2.8"
     layers:
-      .: excluded
+      .: disabled
 
   openembedded-core:
     url: "https://git.openembedded.org/openembedded-core"
-    branch: kirkstone
+    branch: scarthgap
     layers:
       meta:
 
   meta-arm:
     url: "git://git.yoctoproject.org/meta-arm"
-    branch: kirkstone
+    branch: scarthgap
     layers:
       meta-arm-toolchain:
       meta-arm:
@@ -34,4 +34,8 @@ local_conf_header:
   meta-kiss: |
     # Some useful lines you may want to copy to your site.conf for development
     # INHERIT += "rm_work"
-    # EXTRA_IMAGE_FEATURES = "debug-tweaks"
+    # EXTRA_IMAGE_FEATURES += "empty-root-password \
+    #                          allow-empty-password \
+    #                          allow-root-login \
+    #                          "
+    # LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v58"
