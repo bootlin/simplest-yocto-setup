@@ -184,7 +184,7 @@ modify a kernel defconfig.
 
 In the end we hope you like the advantages of this clean setup:
 
- * uses Yocto kirkstone and builds on modern distros without the need of a
+ * uses Yocto scarthgap and builds on modern distros without the need of a
    container -- which you can of course use when it makes sense to
  * no manual cloning of layers: kas does it all for you
  * no manual configuration, except of course for selecting a machine

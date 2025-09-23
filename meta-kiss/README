@@ -6,10 +6,10 @@ Dependencies
 ============
 
   URI: https://git.openembedded.org/openembedded-core
-  branch: kirkstone
+  branch: scarthgap
 
   URI: git://git.yoctoproject.org/meta-arm
-  branch: kirkstone
+  branch: scarthgap
 
 Patches
 =======
