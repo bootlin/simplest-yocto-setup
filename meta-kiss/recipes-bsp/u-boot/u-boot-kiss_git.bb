@@ -30,6 +30,7 @@ do_deploy:append:stm32mp1() {
 SRC_URI:append:freiheit93 = " \
     file://0001-imx93_frdm-Add-initial-board-support.patch \
     file://0002-imx93_frdm-Add-support-for-flashing-board-with-UUU.patch \
+    file://0003-imx93_frdm-Fix-USB-vendor-ID.patch \
     file://optee.cfg \
     "
 

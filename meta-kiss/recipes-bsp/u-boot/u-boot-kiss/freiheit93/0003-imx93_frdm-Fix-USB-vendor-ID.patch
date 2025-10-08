@@ -1,0 +1,31 @@
+From 7b54b6a467a4e80ae1613923209e4b55bdf1e61e Mon Sep 17 00:00:00 2001
+From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Date: Wed, 8 Oct 2025 10:44:47 +0200
+Subject: [PATCH] imx93_frdm: Fix USB vendor ID
+
+NXP manufacturing tools expect the device to have the NXP 0x1fc9 vendor
+ID instead of 0x0525. This is the value already used by other i.MX8 and
+i.MX9 boards.
+
+Upstream-Status: Pending
+Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+---
+ configs/imx93_frdm_defconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configs/imx93_frdm_defconfig b/configs/imx93_frdm_defconfig
+index 117dbdd54987..627164c5bb38 100644
+--- a/configs/imx93_frdm_defconfig
++++ b/configs/imx93_frdm_defconfig
+@@ -126,7 +126,7 @@ CONFIG_USB=y
+ CONFIG_USB_EHCI_HCD=y
+ CONFIG_USB_GADGET=y
+ CONFIG_USB_GADGET_MANUFACTURER="FSL"
+-CONFIG_USB_GADGET_VENDOR_NUM=0x0525
++CONFIG_USB_GADGET_VENDOR_NUM=0x1fc9
+ CONFIG_USB_GADGET_PRODUCT_NUM=0x0152
+ CONFIG_CI_UDC=y
+ CONFIG_ULP_WATCHDOG=y
+-- 
+2.47.3
+
