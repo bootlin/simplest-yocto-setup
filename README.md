@@ -131,7 +131,8 @@ firmware.
 
 Here we also showcase the handling of proprietary licenses that have to be
 accepted before building a component: the NXP firmwares require acceptance of
-the NXP EULA, by adding `NXP_EULA_v58` to the `LICENSE_FLAGS_ACCEPTED` variable.
+the NXP EULA, by adding `NXP_EULA_v57` and `NXP_EULA_v58` to the
+`LICENSE_FLAGS_ACCEPTED` variable.
 
 # How do I use it?
 
@@ -150,9 +151,9 @@ kas checkout
 # Initialize the build environment
 . openembedded-core/oe-init-build-env
 
-# For i.MX93, you will have to accept the NXP EULA, after reading
-# meta-kiss/recipes-bsp/firmware-imx/files/EULA:
-echo 'LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v58"' >> conf/site.conf
+# For i.MX93, you will have to accept the NXP licenses, after reading their
+# text in meta-kiss/recipes-bsp/firmware-imx/files:
+echo 'LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v57 NXP_EULA_v58"' >> conf/site.conf
 
 # Run your first build
 bitbake kiss-image
