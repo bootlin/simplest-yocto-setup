@@ -151,8 +151,14 @@ kas checkout
 # Initialize the build environment
 . openembedded-core/oe-init-build-env
 
-# For i.MX93, you will have to accept the NXP licenses, after reading their
-# text in meta-kiss/recipes-bsp/firmware-imx/files:
+# The default MACHINE is dogbonedark. To build for another board set the
+# `MACHINE` variable in your shell, or in `site.conf` with one of these
+# commands:
+echo 'MACHINE ?= "stompduck"' >> conf/site.conf
+echo 'MACHINE ?= "freiheit93"' >> conf/site.conf
+
+# For the freiheit93 you additionally have to accept the NXP licenses,
+# after reading their text in meta-kiss/recipes-bsp/firmware-imx/files:
 echo 'LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v57 NXP_EULA_v58"' >> conf/site.conf
 
 # Run your first build
@@ -160,16 +166,14 @@ bitbake kiss-image
 
 # Have dinner
 
-# Find the output images here
+# Find the output images here (replace dogbonedark if building for another
+# machine):
 ls -l tmp-glibc/deploy/images/dogbonedark/
 
-# Flash the image (use your uSD card device instead of XYZ!):
+# Flash the image (replace machine name, and use your uSD card device
+# instead of XYZ!):
 sudo bmaptool copy tmp-glibc/deploy/images/dogbonedark/kiss-image-dogbonedark.wic /dev/XYZ
 ```
-
-To use a different machine you can set `MACHINE ?= "stompduck"` in
-`conf/site.conf` or in your shell environment and replace the machine name
-in the paths.
 
 # That's all!
 
