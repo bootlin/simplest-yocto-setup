@@ -11,7 +11,8 @@ inherit kernel
 # there. Or you could be using a mainline kernel with only a few patches on
 # top, and in that case downloading a tarball and applying your patches can
 # be a good solution.
-SRC_URI = "${KERNELORG_MIRROR}/linux/kernel/v6.x/linux-${PV}.tar.xz"
+MAJOR_VER = "${@d.getVar('PV').split('.')[0]}"
+SRC_URI = "${KERNELORG_MIRROR}/linux/kernel/v${MAJOR_VER}.x/linux-${PV}.tar.xz"
 LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 S = "${WORKDIR}/linux-${PV}"
 
