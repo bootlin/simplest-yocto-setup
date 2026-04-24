@@ -44,6 +44,10 @@ for different machines. In this example it downloads and enables:
    with all the "core" recipes
  * the `meta-arm` repository which contains the `meta-arm` and
    `meta-arm-toolchain` layers
+ * the `meta-openembedded` repository which contains the `meta-oe` and
+   `meta-python` layers needed to build the FSBL of the **krazymp** board
+ * the `meta-xilinx` repository which contains the `meta-microblaze`
+   layer needed to build the PMUFW of the **krazymp** board
  * the `meta-kiss*` layers, not downloaded as they are already part of this
    repository, but enabled in `build/conf/bblayers.conf`
 
@@ -90,8 +94,8 @@ independently, as demonstrated in this setup.
 
 ## Machines
 
-The meta-kiss machine-specific layers contain three machine configurations,
-called **dogbonedark**, **stompduck** and **freiheit93**.
+The meta-kiss machine-specific layers contain four machine configurations,
+called **dogbonedark**, **stompduck**, **freiheit93** and **krazymp**.
 
 The **dogbonedark** machine describes a fictitious product which in reality
 implements the [BeagleBone®
@@ -145,6 +149,23 @@ accepted before building a component: the NXP firmwares require acceptance of
 the NXP EULA, by adding `NXP_EULA_v57` and `NXP_EULA_v58` to the
 `LICENSE_FLAGS_ACCEPTED` variable.
 
+The **krazymp** machine describes a fictitious product which in reality
+implements the [ZynqMP Kria KD240 Devres Starter
+kit](https://www.amd.com/en/products/system-on-modules/kria/k24/kd240-drives-starter-kit.html).
+Here the minimal necessary code was take from [meta-xilinx soc-zynqmp
+configuration](https://github.com/Xilinx/meta-xilinx/blob/master/meta-xilinx-core/conf/machine/include/soc-zynqmp.inc).
+
+We use the `meta-microblaze` sublayer of `meta-xilinx` to build the appropriate
+toolchain for the ZynqMP PMUFW. Similarly we need `meta-python` from
+`meta-openembedded` to build the ZynqMP FSBL.
+As for the `stompduck` machine, we are relying on meta-arm to build the TF-A
+firmware.
+
+Note: the `meta-kiss-amd` layer is quite complex due to the nature of how
+ZynqMP devices boot. Its purpose is to demonstrate how a complex boot flow
+can be implemented in a customized and straightforward way, without relying
+on third-party tools too much.
+
 # How do I use it?
 
 The kas configuration files are modular: a base configuration (`kas/kiss.yaml`)
@@ -162,9 +183,14 @@ kas build kas/kiss.yaml:kas/dogbonedark.yaml
 kas build kas/kiss.yaml:kas/stompduck.yaml
 
 # Or build for the freiheit93 board
-# NXP licenses are accepted by default in kas/freiheit93.yaml but you shoud
+# NXP licenses are accepted by default in kas/freiheit93.yaml but you should
 # read them in meta-kiss-nxp/recipes-bsp/firmware-imx/files/ beforehand
 kas build kas/kiss.yaml:kas/freiheit93.yaml
+
+# Or build for the krazymp board
+# sdtgen licenses are accepted by default in kas/freiheit93.yaml but you should
+# read them beforehand
+kas build kas/kiss.yaml:kas/krazymp.yaml
 
 # Have dinner
 
