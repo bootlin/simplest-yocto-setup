@@ -12,11 +12,21 @@ SRCREV = "88dc2788777babfd6322fa655df549a019aa1e69"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=2ca5f2c35c8cc335f0a19756634782f1"
 
 # Recent versions of U-Boot need gnutls headers on host machine.
-DEPENDS += "gnutls-native"
+DEPENDS += "gnutls-native dtc-native"
+
+# These patch are only used by krazymp Machine but to have an
+# identical U-boot source across Machines, apply them all the times.
+SRC_URI:append = " file://0001-usb-onboard-hub-Update-the-delay-for-Microchip-USB57.patch \
+		   file://0002-config_distro_bootcmd-Add-FPGA-bitstream-loading-dur.patch \
+"
 
 # On stm32mp1-based products we want to store the U-Boot environment as a
 # file on the 4th partition of the SD card, formatted as an ext4 filesystem.
 SRC_URI:append:stm32mp1 = " file://env-on-mmc0-4-ext4.cfg"
+
+# On ZynqMP board as we are building ZynqMP FSBL we have to disable U-boot SPL and binman
+# Also, we add an environment to load FPGA bitstream during Kria boot sequence
+SRC_URI:append:krazymp = " file://no-spl-binman.cfg"
 
 do_deploy:append:stm32mp1() {
     install -D -m 644 ${B}/u-boot.dtb ${DEPLOYDIR}

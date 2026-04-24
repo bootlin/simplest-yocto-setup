@@ -23,8 +23,10 @@ do_compile[depends] += " \
 
 B = "${S}/build"
 
+TMPDIR_MICROBLAZE = "${@d.getVar('TMPDIR').replace('${TCLIBCAPPEND}', '-newlib_microblaze')}"
+
 do_compile() {
-	cp ${TOPDIR}/tmp-newlib_microblaze/deploy/images/${MACHINE}/pmufw.elf ${B}/pmufw.elf
+	cp ${TMPDIR_MICROBLAZE}/deploy/images/${MACHINE}/pmufw.elf ${B}/pmufw.elf
 	cp ${DEPLOY_DIR_IMAGE}/fsbl.elf ${B}/fsbl.elf
 	cp ${DEPLOY_DIR_IMAGE}/bl31.elf ${B}/bl31.elf
 	cp ${DEPLOY_DIR_IMAGE}/u-boot.elf ${B}/u-boot.elf

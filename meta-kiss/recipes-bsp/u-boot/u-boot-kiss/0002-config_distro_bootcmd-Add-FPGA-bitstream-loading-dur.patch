@@ -1,0 +1,81 @@
+From d7d055c26ab020d5eca649652809e54e41e779f1 Mon Sep 17 00:00:00 2001
+From: Kory Maincent <kory.maincent@bootlin.com>
+Date: Wed, 22 Apr 2026 18:51:02 +0200
+Subject: [PATCH] config_distro_bootcmd: Add FPGA bitstream loading during boot
+ sequence
+
+Add automatic FPGA bitstream loading during the boot scan process for
+boards. The boot script now scans for "fpga.bit" in the
+boot prefixes if an extlinux file or a boot script is found.
+
+When fpga.bit is found, it is loaded to memory and programmed to the
+FPGA using the "fpga loadb" command. This allows FPGA configuration to
+happen automatically before the OS boots, similar to how extlinux
+configuration is discovered and executed.
+
+The FPGA loading is non-blocking - if no fpga.bit file is found, the
+boot process continues normally with extlinux/script launch.
+
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+---
+ include/config_distro_bootcmd.h | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/include/config_distro_bootcmd.h b/include/config_distro_bootcmd.h
+index 7b6ac6eed9d..967d0b8e54b 100644
+--- a/include/config_distro_bootcmd.h
++++ b/include/config_distro_bootcmd.h
+@@ -194,6 +194,26 @@
+ #define SCAN_DEV_FOR_EFI
+ #endif
+ 
++#ifdef CONFIG_CMD_FPGA_LOADB
++#define BOOTENV_SHARED_FPGA                                               \
++	"fpga_file=fpga.bit\0"                                            \
++	"load_fpga="                                                      \
++		"load ${devtype} ${devnum}:${distro_bootpart} "           \
++			"${loadaddr} ${prefix}${fpga_file}; "             \
++		"fpga loadb 0 ${loadaddr} ${filesize}\0"                   \
++	\
++	"scan_dev_for_fpga="                                              \
++		"if test -e ${devtype} ${devnum}:${distro_bootpart} "     \
++					"${prefix}${fpga_file}; then "    \
++				"echo Found ${prefix}${fpga_file}; "       \
++				"run load_fpga; "                         \
++		"fi;\0"
++#define SCAN_DEV_FOR_FPGA "run scan_dev_for_fpga;"
++#else
++#define BOOTENV_SHARED_FPGA
++#define SCAN_DEV_FOR_FPGA
++#endif
++
+ #ifndef SCAN_DEV_FOR_BOOT_PARTS
+ #define SCAN_DEV_FOR_BOOT_PARTS \
+ 	"part list ${devtype} ${devnum} -bootable devplist; "
+@@ -496,6 +516,7 @@
+ 	BOOTENV_SHARED_EFI \
+ 	BOOTENV_SHARED_VIRTIO \
+ 	BOOTENV_SHARED_EXTENSION \
++	BOOTENV_SHARED_FPGA \
+ 	"boot_prefixes=/ /boot/\0" \
+ 	"boot_scripts=boot.scr.uimg boot.scr\0" \
+ 	"boot_script_dhcp=boot.scr.uimg\0" \
+@@ -511,6 +532,7 @@
+ 				"${devnum}:${distro_bootpart} "           \
+ 				"${prefix}${boot_syslinux_conf}; then "   \
+ 			"echo Found ${prefix}${boot_syslinux_conf}; "     \
++			SCAN_DEV_FOR_FPGA                                 \
+ 			"run boot_extlinux; "                             \
+ 			"echo EXTLINUX FAILED: continuing...; "           \
+ 		"fi\0"                                                    \
+@@ -527,6 +549,7 @@
+ 					"${prefix}${script}; then "       \
+ 				"echo Found U-Boot script "               \
+ 					"${prefix}${script}; "            \
++				SCAN_DEV_FOR_FPGA                                 \
+ 				"run boot_a_script; "                     \
+ 				"echo SCRIPT FAILED: continuing...; "     \
+ 			"fi; "                                            \
+-- 
+2.43.0
+

@@ -1,5 +1,6 @@
 COMPATIBLE_MACHINE:stompduck = "^stompduck$"
 COMPATIBLE_MACHINE:freiheit93 = "^freiheit93$"
+COMPATIBLE_MACHINE:zynqmp = "^zynqmp$"
 
 # trusted-firmware-a can depend on "u-boot", we have "u-boot-kiss"
 # Here the dependency is only needed for stompduck. Freiheit93 also use
