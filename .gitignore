@@ -1,4 +1,6 @@
 bitbake/
 openembedded-core/
+meta-openembedded/
+meta-xilinx/
 build/
 meta-arm/
