@@ -40,6 +40,10 @@ them in the configuration. In this example it downloads and enables:
    with all the "core" recipes
  * the `meta-arm` repository which contains the `meta-arm` and
    `meta-arm-toolchain` layers
+ * the `meta-openembedded` repository which contains the `meta-oe` and
+   `meta-python` layers
+ * the `meta-xilinx` repository which contains the `meta-microblaze`
+   layers
  * the `meta-kiss` layer, not downloaded as it is already part of this
    repository, but enabled in `build/conf/bblayers.conf`
 
@@ -80,7 +84,7 @@ that splitting it into multiple layers proves useful.
 ## Machines
 
 The meta-kiss layer contains two machine configurations, called
-**dogbonedark**, **stompduck** and **freiheit93**.
+**dogbonedark**, **stompduck**, **freiheit93** and the **krazymp**.
 
 The **dogbonedark** machine describes a fictitious product which in reality
 implements the [BeagleBone®
@@ -134,6 +138,18 @@ accepted before building a component: the NXP firmwares require acceptance of
 the NXP EULA, by adding `NXP_EULA_v57` and `NXP_EULA_v58` to the
 `LICENSE_FLAGS_ACCEPTED` variable.
 
+The **krazymp** machine describes a fictitious product which in reality
+implements the [ZynqMP Kria KD240 Devres Starter
+kit](https://www.amd.com/en/products/system-on-modules/kria/k24/kd240-drives-starter-kit.html).
+Here the minimal necessary code was take from [meta-xilinx soc-zynqmp
+configuration](https://github.com/Xilinx/meta-xilinx/blob/master/meta-xilinx-core/conf/machine/include/soc-zynqmp.inc).
+
+We use `meta-microblaze` sublayer of `meta-xilinx` to build the appropriate
+toolchain for the ZynqMP PMUFW. Similarly we need `meta-python` to build
+the ZynqMP FSBL.
+As for the `stompduck` machine, we are relying on meta-arm to build the TF-A
+firmware.
+
 # How do I use it?
 
 According to the kas configuration file, after cloning this repository the
@@ -156,6 +172,7 @@ kas checkout
 # commands:
 echo 'MACHINE ?= "stompduck"' >> conf/site.conf
 echo 'MACHINE ?= "freiheit93"' >> conf/site.conf
+echo 'MACHINE ?= "krazymp"' >> conf/site.conf
 
 # For the freiheit93 you additionally have to accept the NXP licenses,
 # after reading their text in meta-kiss/recipes-bsp/firmware-imx/files:
