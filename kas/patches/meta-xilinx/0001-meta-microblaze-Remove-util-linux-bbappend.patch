@@ -1,0 +1,25 @@
+From 4cca6032b8b6774f6b4eb9f2c978f00ef7f0524e Mon Sep 17 00:00:00 2001
+From: Kory Maincent <kory.maincent@bootlin.com>
+Date: Tue, 7 Apr 2026 16:04:23 +0000
+Subject: [PATCH] meta-microblaze: Remove util-linux bbappend
+
+util-linux_2.40 is only present in meta-xilinx-core layer and
+meta-microblaze should not depends on this layer.
+
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+---
+ .../recipes-core/util-linux/util-linux_2.40%.bbappend           | 2 --
+ 1 file changed, 2 deletions(-)
+ delete mode 100644 meta-microblaze/recipes-core/util-linux/util-linux_2.40%.bbappend
+
+diff --git a/meta-microblaze/recipes-core/util-linux/util-linux_2.40%.bbappend b/meta-microblaze/recipes-core/util-linux/util-linux_2.40%.bbappend
+deleted file mode 100644
+index b8189a97..00000000
+--- a/meta-microblaze/recipes-core/util-linux/util-linux_2.40%.bbappend
++++ /dev/null
+@@ -1,2 +0,0 @@
+-FILESEXTRAPATHS:append:microblaze := ":${THISDIR}/util-linux-2.40"
+-SRC_URI:append:microblaze = " file://util-linux-microblaze.patch"
+-- 
+2.43.0
+
