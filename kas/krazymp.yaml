@@ -1,0 +1,30 @@
+header:
+  version: 11
+
+machine: krazymp
+
+repos:
+  meta-openembedded:
+    url: "https://git.openembedded.org/meta-openembedded.git"
+    branch: scarthgap
+    layers:
+      meta-oe:
+      meta-python:
+
+  meta-xilinx:
+    url: https://github.com/Xilinx/meta-xilinx.git
+    branch: scarthgap
+    patches:
+      0001:
+        repo: meta-kiss-amd
+        path: kas/patches/meta-xilinx/0001-meta-microblaze-Remove-util-linux-bbappend.patch
+    layers:
+      meta-microblaze:
+
+  meta-kiss-amd:
+    layers:
+      meta-kiss-amd:
+
+local_conf_header:
+  meta-kiss-amd: |
+    LICENSE_FLAGS_ACCEPTED += "commercial_sdtgen-native"

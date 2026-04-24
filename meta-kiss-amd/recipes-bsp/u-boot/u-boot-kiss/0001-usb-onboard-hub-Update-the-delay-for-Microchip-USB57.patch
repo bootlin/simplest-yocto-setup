@@ -1,0 +1,34 @@
+From d527a62e53b5228c098a8850841902014444ce41 Mon Sep 17 00:00:00 2001
+From: Venkatesh Yadav Abbarapu <venkatesh.abbarapu@amd.com>
+Date: Wed, 27 Nov 2024 14:17:51 +0530
+Subject: [PATCH] usb: onboard-hub: Update the delay for Microchip USB5744
+
+USB hub itself requires some delay after reset to get to
+state where configuration data is going to be accepted.
+Without additional delay i2c failures are observed
+on our boards.
+
+Signed-off-by: Venkatesh Yadav Abbarapu <venkatesh.abbarapu@amd.com>
+Upstream-Status: pending
+---
+ common/usb_onboard_hub.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/common/usb_onboard_hub.c b/common/usb_onboard_hub.c
+index 6fc34489a98..b265321c42e 100644
+--- a/common/usb_onboard_hub.c
++++ b/common/usb_onboard_hub.c
+@@ -271,8 +271,8 @@ static const struct onboard_hub_data usb2514_data = {
+ 
+ static const struct onboard_hub_data usb5744_data = {
+ 	.init = usb5744_i2c_init,
+-	.power_on_delay_us = 1000,
+-	.reset_us = 5,
++	.power_on_delay_us = 10000,
++	.reset_us = 10000,
+ 	.num_supplies = 1,
+ 	.supply_names = { "vdd-supply" },
+ };
+-- 
+2.43.0
+
