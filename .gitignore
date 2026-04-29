@@ -1,4 +1,5 @@
 bitbake/
 openembedded-core/
 build/
-meta-arm/
+meta-*/
+!meta-kiss*/
