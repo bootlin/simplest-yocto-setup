@@ -3,3 +3,4 @@ openembedded-core/
 build/
 meta-*/
 !meta-kiss/
+!meta-kiss-advanced/
