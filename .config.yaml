@@ -30,6 +30,10 @@ repos:
     layers:
       meta-kiss:
 
+  meta-kiss-advanced:
+    layers:
+      meta-kiss-advanced:
+
 local_conf_header:
   meta-kiss: |
     # Some useful lines you may want to copy to your site.conf for development
@@ -38,4 +42,5 @@ local_conf_header:
     #                          allow-empty-password \
     #                          allow-root-login \
     #                          "
+  meta-kiss-advanced: |
     # LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v57 NXP_EULA_v58"
