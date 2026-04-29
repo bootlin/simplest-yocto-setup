@@ -1,0 +1,41 @@
+This README file contains information on the contents of the meta-kiss layer.
+
+Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+  Internal dependency on meta-kiss.
+
+  URI: https://git.openembedded.org/openembedded-core
+  branch: scarthgap
+
+  URI: git://git.yoctoproject.org/meta-arm
+  branch: scarthgap
+
+Patches
+=======
+
+Please submit any patches against the meta-kiss layer as patches to
+feedback@bootlin.com or as github pull requests at
+https://github.com/bootlin/yocto-kiss
+
+Table of Contents
+=================
+
+  I. Adding the meta-kiss-nxp layer to your build
+ II. Misc
+
+
+I. Adding the meta-kiss-nxp layer to your build
+======================================================
+
+Run 'bitbake-layers add-layer meta-kiss-nxp'
+
+II. Misc
+========
+
+This layer extend the simple meta-kiss layer with more complex
+architectures that need specific firmwares with more nested boot flow.
+It is not useful as is, but rather as a reference on how a layer can
+be written without unnecessary complications.
