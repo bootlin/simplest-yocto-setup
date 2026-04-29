@@ -16,7 +16,7 @@ Patches
 
 Please submit any patches against the meta-kiss layer as patches to
 feedback@bootlin.com or as github pull requests at
-https://github.com/bootlin/simplest-yocto-setup
+https://github.com/bootlin/yocto-kiss
 
 Table of Contents
 =================
