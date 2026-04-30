@@ -172,7 +172,7 @@ ls -l tmp-glibc/deploy/images/dogbonedark/
 
 # Flash the image (replace machine name, and use your uSD card device
 # instead of XYZ!):
-sudo bmaptool copy tmp-glibc/deploy/images/dogbonedark/kiss-image-dogbonedark.wic /dev/XYZ
+sudo bmaptool copy tmp-glibc/deploy/images/dogbonedark/kiss-image-dogbonedark.rootfs.wic /dev/XYZ
 ```
 
 # That's all!
