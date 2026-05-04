@@ -29,6 +29,8 @@ This repository is composed of:
  * `.config.yaml`: a kas configuration file
  * `meta-kiss`: the layer with the (fictitious) metadata for the products
    of a (fictitious) company
+ * `meta-kiss-advanced`: an extension of `meta-kiss` supporting more
+   (fictuous) machines that have more complex architectures
 
 The `.config.yaml` is the configuration file for the
 [kas](https://kas.readthedocs.io/) utility, which allows to easily download
@@ -42,6 +44,8 @@ them in the configuration. In this example it downloads and enables:
    `meta-arm-toolchain` layers
  * the `meta-kiss` layer, not downloaded as it is already part of this
    repository, but enabled in `build/conf/bblayers.conf`
+ * the `meta-kiss-advanced` layer, not downloaded as it is already part
+   of this repository, but enabled in `build/conf/bblayers.conf`
 
 Using kas is not mandatory to use Yocto/OpenEmbedded, but we found it
 simple and convenient. You can use another tool for your project if so you
@@ -80,7 +84,7 @@ that splitting it into multiple layers proves useful.
 ## Machines
 
 The meta-kiss layer contains two machine configurations, called
-**dogbonedark**, **stompduck** and **freiheit93**.
+**dogbonedark**, **stompduck**.
 
 The **dogbonedark** machine describes a fictitious product which in reality
 implements the [BeagleBone®
@@ -115,6 +119,29 @@ from the meta-arm layer looked like a good choice given the balance between
 the code quality of the meta-arm layer itself and the complexity required
 for a recipe to build TF-A. So we added this layer to the kas configuration
 file together with the meta-arm-toolchain layer it depends on.
+
+# The `meta-kiss-advanced` layer
+
+`meta-kiss-advanced` is a layer that extends the `meta-kiss` layer with more
+advanced architectures. This second layer has been added to keep `meta-kiss`
+as simple as possible to make it easy to understand how simple board
+architectures should be supported, while `meta-kiss-advanced` provides support
+for more complex architectures that have more complexity in the boot flow and
+need more recipes for specific firmwares.
+
+In reality it is OK to put several machines within the same layer, but keep in
+mind that when we reach a certain complexity level it can be interesting to
+split the layers into one layer per architecture or machine.
+
+The `meta-kiss-advanced` layer provides:
+
+ * support for one machine
+ * a few recipes, including firmwares, kernel, U-Boot, etc.
+
+## Machines
+
+The `meta-kiss-advanced` layer contains one machine configurations, called
+**freiheit93**.
 
 The **freiheit93** machine describes a fictitious product which in reality
 implements the [FRDM
