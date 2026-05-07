@@ -1,0 +1,9 @@
+header:
+  version: 11
+
+machine: stompduck
+
+repos:
+  meta-kiss-st:
+    layers:
+      meta-kiss-st:

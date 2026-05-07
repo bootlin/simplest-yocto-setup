@@ -1,0 +1,13 @@
+header:
+  version: 11
+
+machine: freiheit93
+
+repos:
+  meta-kiss-nxp:
+    layers:
+      meta-kiss-nxp:
+
+local_conf_header:
+  meta-kiss-nxp: |
+    LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v57 NXP_EULA_v58"
