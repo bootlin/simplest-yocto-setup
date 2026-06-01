@@ -19,12 +19,29 @@ repos:
     layers:
       meta:
 
+  meta-openembedded:
+    url: "https://git.openembedded.org/meta-openembedded.git"
+    branch: scarthgap
+    layers:
+      meta-oe:
+      meta-python:
+
   meta-arm:
     url: "https://git.yoctoproject.org/meta-arm"
     branch: scarthgap
     layers:
       meta-arm-toolchain:
       meta-arm:
+
+  meta-xilinx:
+    url: https://github.com/Xilinx/meta-xilinx.git
+    branch: scarthgap
+    patches:
+      0001:
+        repo: meta-kiss
+        path: kas_patches/meta-xilinx/0001-meta-microblaze-Remove-util-linux-bbappend.patch
+    layers:
+      meta-microblaze:
 
   meta-kiss:
     layers:

@@ -6,6 +6,8 @@ SUMMARY = "A simple, minimal image"
 
 IMAGE_INSTALL = "packagegroup-core-boot dropbear sl"
 
+IMAGE_INSTALL:append:zynqmp = " fpga-bitstream"
+
 IMAGE_LINGUAS = " "
 
 inherit core-image
