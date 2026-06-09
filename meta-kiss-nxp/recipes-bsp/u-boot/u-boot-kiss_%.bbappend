@@ -4,6 +4,7 @@ SRC_URI:append:freiheit93 = " \
 	file://optee.cfg \
 	file://0001-binman-Add-optee-binary-to-i.MX9-platform-types.patch \
 	file://0002-imx93-Add-support-for-OPTEE.patch \
+	file://0003-imx93_frdm-Add-support-for-2CS-2GB-DRAM-support.patch \
 "
 
 # We will embed boot firmwares, TFA images and optee image in the generated
