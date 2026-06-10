@@ -1,0 +1,42 @@
+This README file contains information on the contents of the
+meta-kiss-amd layer.
+
+Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+  Internal dependency on meta-kiss layer
+
+  URI: https://git.openembedded.org/openembedded-core
+  branch: scarthgap
+
+  URI: git://git.yoctoproject.org/meta-arm
+  branch: scarthgap
+
+Patches
+=======
+
+Please submit any patches against the meta-kiss-amd layer as patches to
+feedback@bootlin.com or as github pull requests at
+https://github.com/bootlin/yocto-kiss
+
+Table of Contents
+=================
+
+  I. Adding the meta-kiss-amd layer to your build
+ II. Misc
+
+
+I. Adding the meta-kiss-amd layer to your build
+=================================================
+
+Run 'bitbake-layers add-layer meta-kiss-amd'
+
+II. Misc
+========
+
+This layer provides an example of the simplest, but realistic and working,
+Yocto/OpenEmbedded setup for end products. It is not useful as is, but
+rather as a reference on how a layer can be written without unnecessary
+complications.
