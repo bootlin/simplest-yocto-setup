@@ -26,61 +26,72 @@ build environment or to clean up what they already have.
 
 This repository is composed of:
 
- * `.config.yaml`: a kas configuration file
- * `meta-kiss`: the layer with the (fictitious) metadata for the products
-   of a (fictitious) company
+ * kas configuration files: modular configuration for different machines
+ * `meta-kiss`: the layer with the (fictitious) distro configuration and
+   common recipes for the products of a (fictitious) company
+ * `meta-kiss-ti`: machine-specific layer for the dogbonedark board
+ * `meta-kiss-st`: machine-specific layer for the stompduck board
+ * `meta-kiss-nxp`: machine-specific layer for the freiheit93 board
 
-The `.config.yaml` is the configuration file for the
-[kas](https://kas.readthedocs.io/) utility, which allows to easily download
-all the required third-party components in the correct place and enable
-them in the configuration. In this example it downloads and enables:
+The kas configuration files use the [kas](https://kas.readthedocs.io/)
+utility, which allows to easily download all the required third-party
+components in the correct place and enable them in the configuration. The
+configuration is split into modular files that can be combined to build
+for different machines. In this example it downloads and enables:
 
  * the `bitbake` build engine
  * the `openembedded-core` repository which contains the `meta` layer
    with all the "core" recipes
  * the `meta-arm` repository which contains the `meta-arm` and
    `meta-arm-toolchain` layers
- * the `meta-kiss` layer, not downloaded as it is already part of this
+ * the `meta-kiss*` layers, not downloaded as they are already part of this
    repository, but enabled in `build/conf/bblayers.conf`
 
 Using kas is not mandatory to use Yocto/OpenEmbedded, but we found it
 simple and convenient. You can use another tool for your project if so you
 prefer.
 
-# The `meta-kiss` layer
+# The `meta-kiss` layers
 
-`meta-kiss` is a layer that demonstrates how a realistic layer for a
+The `meta-kiss*` layers demonstrate how a realistic layer structure for a
 product company can (and, in our opinion, should) look like.
 
-It is named after the KISS principle which "states that most systems work
+They are named after the KISS principle which "states that most systems work
 best if they are kept simple rather than made complicated" (source:
 [Wikipedia](https://en.wikipedia.org/wiki/KISS_principle)).
 
 Here we used "kiss" as the hypothetical name of a fictitious company. The
-machine configurations in meta-kiss implement fictitious products, but
-except for their name they are actual development boards and the output
-images can be used on these boards. In real world use cases a layer
-implementing company products can reasonably be called
-`meta-<company-name>` and the machine names should be named after the
-product names.
+machine configurations in the meta-kiss machine layers implement fictitious
+products, but except for their name they are actual development boards and
+the output images can be used on these boards. In real world use cases
+layers implementing company products can reasonably be called
+`meta-<company-name>` and `meta-<company-name>-<product-name>`, with the
+product names matching the actual product names.
 
-The `meta-kiss` layer provides:
+The layer structure is organized as follows:
 
- * support for two machines
- * a distro configuration
- * a few recipes, including kernel, U-Boot, a userspace application and an
-   image recipe
+ * `meta-kiss`: the base distro layer providing:
+   * a distro configuration (`kiss`)
+   * common recipes including kernel, U-Boot, a userspace application and an
+     image recipe
+ * `meta-kiss-ti`, `meta-kiss-st`, `meta-kiss-nxp`:
+   machine-specific layers, each providing:
+   * a machine configuration file
+   * machine-specific recipe customizations (kernel defconfig, U-Boot config, etc.)
+   * WIC configuration for image creation
 
-Note that `meta-kiss` is a single layer. The `bitbake` Yocto/OE build
-engine is powerful enough to handle lots of machines, recipes and even
-multiple distros in a single layer. Thus using a simple layer in your
-company is perfectly fine and encouraged, unless your need are so complex
-that splitting it into multiple layers proves useful.
+Note that the `bitbake` Yocto/OE build engine is powerful enough to handle
+lots of machines, recipes and even multiple distros in a single layer. Thus
+using a simple layer in your company is perfectly fine and encouraged.
+However, when you have multiple products with significantly different
+hardware architectures, splitting machine-specific content into separate
+layers can improve organization and make it easier to maintain each product
+independently, as demonstrated in this setup.
 
 ## Machines
 
-The meta-kiss layer contains two machine configurations, called
-**dogbonedark**, **stompduck** and **freiheit93**.
+The meta-kiss machine-specific layers contain three machine configurations,
+called **dogbonedark**, **stompduck** and **freiheit93**.
 
 The **dogbonedark** machine describes a fictitious product which in reality
 implements the [BeagleBone®
@@ -136,43 +147,51 @@ the NXP EULA, by adding `NXP_EULA_v57` and `NXP_EULA_v58` to the
 
 # How do I use it?
 
-According to the kas configuration file, after cloning this repository the
-`dogbonedark` board is configured by default. Here's how you can have a
-working image for that board in a few steps:
+The kas configuration files are modular: a base configuration (`kas/kiss.yaml`)
+is combined with a machine-specific configuration to build for a specific
+board. Here's how you can have a working image in a few steps:
 
 ```bash
 # If you don't have kas yet (needed once only):
 pip install kas
 
-# Use kas to download the third-party repositories needed
-# (required the first time, or after changes to .config.yaml)
-kas checkout
+# Build for the dogbonedark board
+kas build kas/kiss.yaml:kas/dogbonedark.yaml
 
-# Initialize the build environment
-. openembedded-core/oe-init-build-env
+# Or build for the stompduck board
+kas build kas/kiss.yaml:kas/stompduck.yaml
 
-# The default MACHINE is dogbonedark. To build for another board set the
-# `MACHINE` variable in your shell, or in `site.conf` with one of these
-# commands:
-echo 'MACHINE ?= "stompduck"' >> conf/site.conf
-echo 'MACHINE ?= "freiheit93"' >> conf/site.conf
-
-# For the freiheit93 you additionally have to accept the NXP licenses,
-# after reading their text in meta-kiss/recipes-bsp/firmware-imx/files:
-echo 'LICENSE_FLAGS_ACCEPTED += "NXP_EULA_v57 NXP_EULA_v58"' >> conf/site.conf
-
-# Run your first build
-bitbake kiss-image
+# Or build for the freiheit93 board
+# NXP licenses are accepted by default in kas/freiheit93.yaml but you shoud
+# read them in meta-kiss-nxp/recipes-bsp/firmware-imx/files/ beforehand
+kas build kas/kiss.yaml:kas/freiheit93.yaml
 
 # Have dinner
 
-# Find the output images here (replace dogbonedark if building for another
-# machine):
-ls -l tmp-glibc/deploy/images/dogbonedark/
+# Find the output images here (replace dogbonedark with your machine):
+ls -l build/tmp-glibc/deploy/images/dogbonedark/
 
 # Flash the image (replace machine name, and use your uSD card device
 # instead of XYZ!):
-sudo bmaptool copy tmp-glibc/deploy/images/dogbonedark/kiss-image-dogbonedark.rootfs.wic /dev/XYZ
+sudo bmaptool copy build/tmp-glibc/deploy/images/dogbonedark/kiss-image-dogbonedark.rootfs.wic /dev/XYZ
+```
+
+## Alternative: Using bitbake directly
+
+If you prefer to use `bitbake` directly instead of `kas build`:
+
+```bash
+# First, use kas to checkout the required repositories:
+kas checkout kas/kiss.yaml:kas/dogbonedark.yaml
+
+# Then initialize the build environment:
+. openembedded-core/oe-init-build-env
+
+# Now you can use bitbake as usual:
+bitbake kiss-image
+
+# To switch machines, update conf/site.conf or your shell environment:
+echo 'MACHINE = "stompduck"' >> conf/site.conf
 ```
 
 # That's all!
@@ -193,6 +212,7 @@ In the end we hope you like the advantages of this clean setup:
    container -- which you can of course use when it makes sense to
  * no manual cloning of layers: kas does it all for you
  * no manual configuration, except of course for selecting a machine
- * a little amount of code: 333 lines in meta-kiss at the time of this
-   writing, documentation included, not including the kernel defconfigs
+ * a little amount of code: organized cleanly across distro and
+   machine-specific layers, documentation included, not including the kernel
+   defconfigs
  * and, most important, readable code -- at least we hope so!
