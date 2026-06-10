@@ -1,0 +1,31 @@
+From 7d33a03c06e234fade63f19b675497795d2a4ec1 Mon Sep 17 00:00:00 2001
+From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Date: Wed, 10 Jun 2026 15:58:45 +0200
+Subject: [PATCH 1/2] binman: Add optee binary to i.MX9 platform types
+
+OP-TEE tee.bin is generated externally and might be missing during the
+build.
+
+Upstream-Status: Submitted [https://lore.kernel.org/all/20260610-mathieu-optee-fix-v2-1-197aee94b7ad@bootlin.com/]
+Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+---
+ tools/binman/etype/nxp_imx9image.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/tools/binman/etype/nxp_imx9image.py b/tools/binman/etype/nxp_imx9image.py
+index e0e806f2b7f3..138563ba33ae 100644
+--- a/tools/binman/etype/nxp_imx9image.py
++++ b/tools/binman/etype/nxp_imx9image.py
+@@ -36,7 +36,8 @@ class Entry_nxp_imx9image(Entry_mkimage):
+             'append', 'boot-from', 'cntr-version', 'container', 'dummy-ddr',
+             'dummy-v2x', 'hold', 'image', 'soc-type'
+         ]
+-        external_files = ['oei-m33-tcm.bin', 'm33_image.bin', 'bl31.bin']
++        external_files = ['oei-m33-tcm.bin', 'm33_image.bin', 'bl31.bin',
++                          'tee.bin']
+ 
+         with open(self.config_filename, 'w', encoding='utf-8') as f:
+             for prop in self._node.props.values():
+-- 
+2.47.3
+

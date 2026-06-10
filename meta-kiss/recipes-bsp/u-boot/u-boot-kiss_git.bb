@@ -22,7 +22,11 @@ do_deploy:append:stm32mp1() {
     install -D -m 644 ${B}/u-boot.dtb ${DEPLOYDIR}
 }
 
-SRC_URI:append:freiheit93 = " file://optee.cfg"
+SRC_URI:append:freiheit93 = " \
+	file://optee.cfg \
+	file://0001-binman-Add-optee-binary-to-i.MX9-platform-types.patch \
+	file://0002-imx93-Add-support-for-OPTEE.patch \
+"
 
 # We will embed boot firmwares, TFA images and optee image in the generated
 # binary: we do depend on them.

@@ -1,0 +1,39 @@
+From 76ed85f152e10e517f425a5428b7a4fa4652fe13 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Krzysztof=20Drobi=C5=84ski?= <krzysztof@kd-solutions.pl>
+Date: Tue, 14 Apr 2026 17:59:28 +0200
+Subject: [PATCH 2/2] imx93: Add support for OPTEE
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+OPTEE-OS starts correctly when "opteed" is enabled for Secure Payload
+Dispatcher in TF-A (tested on OP-TEE version: 4.9.0), however imx93
+devices require a patch for OPTEE targets because binman does not see
+the tee.bin file when it is available.
+
+Enable conditional OPTEE support for imx93 devices.
+
+Upstream-Status: Submitted [https://lore.kernel.org/all/20260610-mathieu-optee-fix-v2-2-197aee94b7ad@bootlin.com/]
+Signed-off-by: Krzysztof Drobiński <krzysztof@kd-solutions.pl>
+Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+---
+ arch/arm/dts/imx93-u-boot.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm/dts/imx93-u-boot.dtsi b/arch/arm/dts/imx93-u-boot.dtsi
+index dc86746ac909..60648bd10a5c 100644
+--- a/arch/arm/dts/imx93-u-boot.dtsi
++++ b/arch/arm/dts/imx93-u-boot.dtsi
+@@ -69,6 +69,9 @@
+ 				container;
+ 				image0 = "a55", "bl31.bin", "0x204E0000";
+ 				image1 = "a55", "u-boot.bin", "0x80200000";
++#if defined(CONFIG_OPTEE)
++				image2 = "a55", "tee.bin", "0x96000000";
++#endif
+ 			};
+ 		};
+ 	};
+-- 
+2.47.3
+
