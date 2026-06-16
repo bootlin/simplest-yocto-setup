@@ -1,7 +1,7 @@
-# simplest-yocto-setup
+# yocto-kiss
 
-`simplest-yocto-setup` is an example of the simplest, but realistic and
-working, Yocto/OpenEmbedded setup.
+`yocto-kiss` is an example of the simplest, but realistic and working,
+Yocto/OpenEmbedded setup.
 
 It aims at providing an example of how Yocto/OE can be used as the embedded
 Linux build system for end products without unnecessary complications.
