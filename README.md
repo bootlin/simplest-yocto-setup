@@ -32,6 +32,7 @@ This repository is composed of:
  * `meta-kiss-ti`: machine-specific layer for the dogbonedark board
  * `meta-kiss-st`: machine-specific layer for the stompduck board
  * `meta-kiss-nxp`: machine-specific layer for the freiheit93 board
+ * `meta-kiss-amd`: machine-specific layer for the krazymp board
 
 The kas configuration files use the [kas](https://kas.readthedocs.io/)
 utility, which allows to easily download all the required third-party
@@ -78,7 +79,7 @@ The layer structure is organized as follows:
    * a distro configuration (`kiss`)
    * common recipes including kernel, U-Boot, a userspace application and an
      image recipe
- * `meta-kiss-ti`, `meta-kiss-st`, `meta-kiss-nxp`:
+ * `meta-kiss-ti`, `meta-kiss-st`, `meta-kiss-nxp`, `meta-kiss-amd`:
    machine-specific layers, each providing:
    * a machine configuration file
    * machine-specific recipe customizations (kernel defconfig, U-Boot config, etc.)
