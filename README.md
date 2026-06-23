@@ -135,7 +135,7 @@ file together with the meta-arm-toolchain layer it depends on.
 The **freiheit93** machine describes a fictitious product which in reality
 implements the [FRDM
 i.MX93](https://www.nxp.com/design/design-center/development-boards-and-designs/frdm-i-mx-93-development-board:FRDM-IMX93).
-Here the minimal necessary code was take from [meta-imx-frdm i.MX93 machine
+Here the minimal necessary code was taken from [meta-imx-frdm i.MX93 machine
 configuration](https://github.com/nxp-imx-support/meta-imx-frdm/blob/lf-6.6.36-2.1.0/meta-imx-bsp/conf/machine/imx93-11x11-lpddr4x-frdm.conf)
 and [meta-freescale i.MX93 machine
 include](https://git.yoctoproject.org/meta-freescale/tree/conf/machine/include/imx93-evk.inc).
@@ -153,7 +153,7 @@ the NXP EULA, by adding `NXP_EULA_v57` and `NXP_EULA_v58` to the
 The **krazymp** machine describes a fictitious product which in reality
 implements the [ZynqMP Kria KD240 Devres Starter
 kit](https://www.amd.com/en/products/system-on-modules/kria/k24/kd240-drives-starter-kit.html).
-Here the minimal necessary code was take from [meta-xilinx soc-zynqmp
+Here the minimal necessary code was taken from [meta-xilinx soc-zynqmp
 configuration](https://github.com/Xilinx/meta-xilinx/blob/master/meta-xilinx-core/conf/machine/include/soc-zynqmp.inc).
 
 We use the `meta-microblaze` sublayer of `meta-xilinx` to build the appropriate
