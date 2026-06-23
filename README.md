@@ -107,7 +107,7 @@ found in the meta-ti-bsp layer.
 
 We could of course have used the meta-ti-bsp layer directly, however since
 the hardware is very well supported by the mainline kernel and U-Boot we
-only needed to write (or copy and paste!) only a small amount of code.
+only needed to write (or copy and paste!) a small amount of code.
 
 Several BSP layers provided by hardware vendors bring in extra complexity,
 deviation from standard coding practices and even bugs and unnecessarily
